@@ -11,10 +11,16 @@ const authReducer = (state, action) => {
         case 'signin':
             // Resets error message once user signs up and would proceed to resetting the state
             return { errorMessage: '', token: action.payload };
+        case 'clear_error_message':
+            return { ...state, errorMessage: '' };
         default:
             return state;
     }
 };
+
+const clearErrorMessage = dispatch => () => {
+    dispatch({ type: 'clear_error_message' });
+}
 
 const signup = (dispatch) => {
     return async ({ email, password }) => {
@@ -54,7 +60,7 @@ const signout = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
     authReducer,
-    { signin, signout, signup },
+    { signin, signout, signup, clearErrorMessage },
     // By default the user is not logged in because there is no token
     // As soon as there is a token present, it would signal that the user is logged in 
     { token: null, errorMessage: '' }
