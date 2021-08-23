@@ -9,13 +9,14 @@ import useLocation from '../hooks/useLocation';
 import TrackForm from '../components/TrackForm';
 
 const TrackCreateScreen = ({ isFocused }) => {
-    const { state, addLocation } = useContext(LocationContext);
+    const { state: { recording }, addLocation } = useContext(LocationContext);
     // Purpose of useCallback is to limit the number of times that we create a new callback function
     // Only when the value of location changes then we will get back a new function
     const callback = useCallback((location) => {
-        addLocation(location, state.recording);
-    }, [state.recording]);
-    const [err] = useLocation(isFocused, callback);
+        addLocation(location, recording);
+    }, [recording]);
+
+    const [err] = useLocation(isFocused || recording, callback);
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
             <Text h2>Create a Track</Text>
