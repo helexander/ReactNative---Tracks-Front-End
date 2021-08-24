@@ -9,6 +9,12 @@ const Map = () => {
     if (!currentLocation) {
         return <ActivityIndicator size="large" style={{ marginTop: 200 }} />
     }
+
+    // initialLocation = {
+    //     longitude: -122.0312186,
+    //     latitude: 37.33233141,
+    // };
+
     return <MapView
         style={styles.map}
         initialRegion={{
